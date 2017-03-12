@@ -20,6 +20,9 @@ export default [
               'react-css-modules',
               {
                 context: SRC,
+                filetypes: {
+                  ".scss" : "postcss-scss"
+                }
                 // generateScopedName: '[path]___[name]__[local]___[hash:base64:5]',
               },
             ],

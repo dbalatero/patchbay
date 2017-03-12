@@ -4,7 +4,7 @@ import { SRC } from './paths';
 
 export default [
   {
-    test: /\.css$/,
+    test: /\.scss$/,
     include: SRC,
     use: ExtractTextPlugin.extract({
       fallbackLoader: {
@@ -15,7 +15,7 @@ export default [
       },
       loader: [
         {
-          loader:'css-loader',
+          loader: 'css-loader',
           options: {
             modules: true,
             localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
@@ -28,6 +28,10 @@ export default [
           options: {
             // pass loader options here
           },
+        },
+
+        {
+          loader: 'sass-loader'
         },
       ],
     }),
