@@ -1,0 +1,46 @@
+$bay-width: 890px;
+$row-padding: 5px;
+$input-width: ($bay-width - ($row-padding * 2)) / 24;
+
+.patch-bay {
+  width: $bay-width;
+  border: 5px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: $row-padding 0;
+}
+
+.row {
+  padding: $row-padding;
+  display: flex;
+}
+
+.label {
+  width: $input-width;
+  text-align: center;
+}
+
+.number {
+  background-color: #43c9ff;
+  color: #fff;
+  border-radius: 50%;
+  width: $input-width / 2;
+  height: $input-width / 2;
+  display: inline-block;
+  padding: 3px;
+}
+
+.jack {
+  width: $input-width;
+
+  &::before {
+    margin: 0 auto;
+    width: $input-width / 2;
+    height: $input-width / 2;
+    background-color: #eee;
+    border: 3px solid #bbb;
+    border-radius: 50%;
+    content: "";
+    display: block;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Layout from '../Layout/Layout';
+import PatchBay from '../PatchBay/PatchBay';
 
 // If you use React Router, make this component
 // render <Router> with your routes. Currently,
@@ -12,7 +13,7 @@ import Layout from '../Layout/Layout';
 function App() {
   return (
     <Layout>
-      <h1>hello</h1>
+      <PatchBay />
     </Layout>
   );
 }

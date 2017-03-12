@@ -9,7 +9,7 @@ const propTypes = {
 function Layout(props) {
   return (
     <div styleName="container">
-      <h1 styleName="heading">Hello, world!</h1>
+      <h1 styleName="heading">Patch Bay Designer</h1>
 
       { props.children }
     </div>
