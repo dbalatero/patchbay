@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App';
-
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
+
+import App from './components/App/App';
+import configureStore from './store/configure_store';
 
 const store = configureStore();
 
 ReactDOM.render(
-  <Provider store={ store }>
+  <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('react-root')
+  document.getElementById('react-root') // eslint-disable-line comma-dangle
 );

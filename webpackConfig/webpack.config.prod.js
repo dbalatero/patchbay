@@ -65,8 +65,8 @@ export default {
     }),
     new StyleLintPlugin({
       configFile: '.stylelintrc.js',
-      files: ['**/*.css'],
-      // syntax: 'scss',
+      files: ['**/*.scss'],
+      syntax: 'scss',
     }),
     new ImageminPlugin({
       gifsicle: {
