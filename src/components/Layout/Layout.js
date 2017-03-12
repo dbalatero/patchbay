@@ -10,7 +10,8 @@ function Layout(props) {
   return (
     <div styleName="container">
       <h1 styleName="heading">Hello, world!</h1>
-      {props.children}
+
+      { props.children }
     </div>
   );
 }
