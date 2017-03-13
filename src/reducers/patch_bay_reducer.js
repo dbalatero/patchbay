@@ -1,11 +1,13 @@
 import { createReducer } from 'redux-immutablejs';
-import { Record } from 'immutable';
+import { List, Record } from 'immutable';
 
 let bayId = 0;
 
 const PatchBayRecord = Record({
   id: null,
   jackCount: 24,
+  outputs: List(),
+  inputs: List(),
 });
 
 function buildPatchBay(jackCount) {
