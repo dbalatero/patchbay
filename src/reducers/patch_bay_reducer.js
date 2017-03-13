@@ -1,26 +1,45 @@
 import { createReducer } from 'redux-immutablejs';
-import { List, Record } from 'immutable';
+import { Map, List, Record } from 'immutable';
+import _ from 'lodash';
 
 let bayId = 0;
+
+const PatchBayLabel = Record({
+  width: 1,
+  value: '',
+});
 
 const PatchBayRecord = Record({
   id: null,
   jackCount: 24,
-  outputs: List(),
-  inputs: List(),
+  stripHeight: Map({
+    value: 5.22,
+    unit: 'mm',
+  }),
+  jackWidth: Map({
+    value: 17.5,
+    unit: 'mm',
+  }),
+  outputs: Map({
+    jacks: List(),
+  }),
 });
 
 function buildPatchBay(jackCount) {
   bayId += 1;
 
-  return PatchBayRecord({
+  const bay = PatchBayRecord({
     id: bayId,
     jackCount,
   });
+
+  const jacks = List(_.times(jackCount, () => PatchBayLabel()));
+
+  return bay.setIn(['outputs', 'jacks'], jacks);
 }
 
 const initialState = {
-  patchBays: [buildPatchBay(24), buildPatchBay(12)],
+  patchBays: [buildPatchBay(24), buildPatchBay(24)],
 };
 
 export default createReducer(

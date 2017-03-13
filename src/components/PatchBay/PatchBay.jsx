@@ -3,12 +3,27 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
+import JackLabel from '../JackLabel/JackLabel';
 import './PatchBay.scss';
 
 function jacks(count) {
   return _.times(count, index => (
     <div styleName="jack" key={`jack-${index}`} />
   ));
+}
+
+function jackLabels(bay, jackType) {
+  const bayId = bay.get('id');
+
+  return bay.getIn([jackType, 'jacks']).map((jack, index) => {
+    const key = `bay-${bayId}-${jackType}-jack-${index}`;
+
+    return (
+      <div styleName="label" key={key}>
+        <JackLabel bay={bay} jackType={jackType} jackIndex={index} />
+      </div>
+    );
+  });
 }
 
 function labels(count, text) {
@@ -33,7 +48,7 @@ function PatchBay(props) {
   return (
     <div styleName="patch-bay">
       <div styleName="row">
-        { labels(jackCount, 'out') }
+        { jackLabels(props.bay, 'outputs') }
       </div>
 
       <div styleName="row">
