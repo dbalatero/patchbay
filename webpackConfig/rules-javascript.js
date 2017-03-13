@@ -14,7 +14,7 @@ export default [
               'latest',
               {
                 es2015: {
-                  modules: false
+                  modules: false,
                 }
               }
             ],
