@@ -25,6 +25,7 @@ const PatchBayRecord = Record({
     unit: 'mm',
   }),
   outputs: JackGroup(),
+  inputs: JackGroup(),
 });
 
 const ConfigurationRecord = Record({
@@ -39,9 +40,12 @@ function buildPatchBay(jackCount) {
     jackCount,
   });
 
-  const jacks = List(_.times(jackCount, () => PatchBayLabel()));
+  const outputJacks = List(_.times(jackCount, () => PatchBayLabel()));
+  const inputJacks = List(_.times(jackCount, () => PatchBayLabel()));
 
-  return bay.setIn(['outputs', 'jacks'], jacks);
+  return bay
+    .setIn(['outputs', 'jacks'], outputJacks)
+    .setIn(['inputs', 'jacks'], inputJacks);
 }
 
 const defaultBays = List([buildPatchBay(24), buildPatchBay(24)]);

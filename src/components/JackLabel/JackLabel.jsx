@@ -2,6 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import '../PatchBay/PatchBay.scss';
+
 function onFieldChange(jackIndex, onChange) {
   return (event) => {
     onChange(jackIndex, event.target.value);
@@ -14,6 +16,7 @@ function JackLabel(props) {
   return (
     <div>
       <input
+        styleName="label-input"
         type="text"
         value={props.value}
         onChange={onChange}

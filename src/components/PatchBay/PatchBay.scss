@@ -1,5 +1,11 @@
 $row-padding: 5px;
 $input-width: 40px;
+$input-padding: 0 5px;
+
+.label-input {
+  width: $input-width;
+  text-align: center;
+}
 
 .patch-bay {
   width: auto;
@@ -17,6 +23,7 @@ $input-width: 40px;
 
 .label {
   width: $input-width;
+  padding: $input-padding;
   text-align: center;
 }
 
@@ -32,6 +39,7 @@ $input-width: 40px;
 
 .jack {
   width: $input-width;
+  padding: $input-padding;
 
   &::before {
     margin: 0 auto;

@@ -39,14 +39,6 @@ function jackLabels(bay, jackType) {
   });
 }
 
-function labels(count, text) {
-  const key = `label-${text}`;
-
-  return _.times(count, index => (
-    <div styleName="label" key={`${key}-${index}`}>{ text }</div>
-  ));
-}
-
 function numbers(count) {
   return _.times(count, index => (
     <div styleName="label" key={`number-${index}`}>
@@ -77,7 +69,7 @@ function PatchBay(props) {
       </div>
 
       <div styleName="row">
-        { labels(jackCount, 'in') }
+        { jackLabels(props.bay, 'inputs') }
       </div>
     </div>
   );
