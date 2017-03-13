@@ -6,16 +6,22 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import './PatchBay.scss';
 
 function jacks(count) {
-  return _.times(count, () => <div styleName="jack" />);
+  return _.times(count, index => (
+    <div styleName="jack" key={`jack-${index}`} />
+  ));
 }
 
 function labels(count, text) {
-  return _.times(count, () => <div styleName="label">{ text }</div>);
+  const key = `label-${text}`;
+
+  return _.times(count, index => (
+    <div styleName="label" key={`${key}-${index}`}>{ text }</div>
+  ));
 }
 
 function numbers(count) {
   return _.times(count, index => (
-    <div styleName="label">
+    <div styleName="label" key={`number-${index}`}>
       <span styleName="number">{ index + 1 }</span>
     </div>
   ));
