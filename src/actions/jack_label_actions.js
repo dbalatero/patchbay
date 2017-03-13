@@ -8,6 +8,4 @@ function jackLabelEdited(options) {
   };
 }
 
-export default {
-  jackLabelEdited,
-};
+export default { jackLabelEdited };

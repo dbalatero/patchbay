@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-immutablejs';
-import { Map, List, Record } from 'immutable';
+import { OrderedMap, Map, List, Record } from 'immutable';
 import _ from 'lodash';
 
 let bayId = 0;
@@ -7,6 +7,10 @@ let bayId = 0;
 const PatchBayLabel = Record({
   width: 1,
   value: '',
+});
+
+const JackGroup = Record({
+  jacks: List(),
 });
 
 const PatchBayRecord = Record({
@@ -20,9 +24,11 @@ const PatchBayRecord = Record({
     value: 17.5,
     unit: 'mm',
   }),
-  outputs: Map({
-    jacks: List(),
-  }),
+  outputs: JackGroup(),
+});
+
+const ConfigurationRecord = Record({
+  patchBays: OrderedMap(),
 });
 
 function buildPatchBay(jackCount) {
@@ -38,12 +44,25 @@ function buildPatchBay(jackCount) {
   return bay.setIn(['outputs', 'jacks'], jacks);
 }
 
-const initialState = {
-  patchBays: [buildPatchBay(24), buildPatchBay(24)],
-};
+const defaultBays = List([buildPatchBay(24), buildPatchBay(24)]);
+
+const initialState = ConfigurationRecord({
+  patchBays: OrderedMap(defaultBays.map(bay => [bay.id, bay])),
+});
 
 export default createReducer(
   initialState,
   {
+    JACK_LABEL_EDITED: (state, action) => state.setIn(
+      [
+        'patchBays',
+        action.bay.id,
+        action.jackType,
+        'jacks',
+        action.jackIndex,
+        'value',
+      ],
+      action.value,
+    ),
   },
 );

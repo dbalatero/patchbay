@@ -20,7 +20,7 @@ Configuration.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    patchBays: state.getIn(['patchBay', 'patchBays']),
+    patchBays: state.getIn(['patchBay', 'patchBays']).toList(),
   };
 }
 

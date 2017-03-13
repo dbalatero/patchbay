@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import JackLabel from '../JackLabel/JackLabel';
+import jackLabelActions from '../../actions/jack_label_actions';
 import './PatchBay.scss';
 
 function jacks(count) {
@@ -12,15 +13,27 @@ function jacks(count) {
   ));
 }
 
-function jackLabels(bay, jackType) {
-  const bayId = bay.get('id');
+function onJackLabelChange(bay, jackType) {
+  return function wrappedOnJackLabelChange(jackIndex, value) {
+    return jackLabelActions.jackLabelEdited({
+      bay,
+      jackType,
+      jackIndex,
+      value,
+    });
+  };
+}
 
-  return bay.getIn([jackType, 'jacks']).map((jack, index) => {
+function jackLabels(bay, jackType) {
+  const bayId = bay.id;
+
+  return bay[jackType].jacks.map((jack, index) => {
     const key = `bay-${bayId}-${jackType}-jack-${index}`;
+    const onChange = onJackLabelChange(bay, jackType);
 
     return (
       <div styleName="label" key={key}>
-        <JackLabel bay={bay} jackType={jackType} jackIndex={index} />
+        <JackLabel onChange={onChange} jackIndex={index} value={jack.value} />
       </div>
     );
   });
@@ -43,7 +56,7 @@ function numbers(count) {
 }
 
 function PatchBay(props) {
-  const jackCount = props.bay.get('jackCount');
+  const jackCount = props.bay.jackCount;
 
   return (
     <div styleName="patch-bay">
