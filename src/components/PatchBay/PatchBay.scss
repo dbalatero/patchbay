@@ -1,9 +1,8 @@
-$bay-width: 890px;
 $row-padding: 5px;
-$input-width: ($bay-width - ($row-padding * 2)) / 24;
+$input-width: 40px;
 
 .patch-bay {
-  width: $bay-width;
+  width: auto;
   border: 5px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
