@@ -10,10 +10,17 @@ export default [
         options: {
           babelrc: false,
           presets: [
-            ['latest', { es2015: { modules: false } }],
-              'stage-3',
-              'react',
+            [
+              'latest',
+              {
+                es2015: {
+                  modules: false
+                }
+              }
             ],
+            'stage-3',
+            'react',
+          ],
 
           plugins: [
             [
