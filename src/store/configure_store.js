@@ -8,8 +8,7 @@ export default function configureStore(initialState) {
   if (process.env.NODE_ENV === 'development') {
     middlewares.push(createLoggerMiddleware({
       stateTransformer(state) {
-        return state;
-        // return state.toJS()
+        return state.toJS();
       },
     }));
   }
