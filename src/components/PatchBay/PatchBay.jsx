@@ -1,5 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import './PatchBay.scss';
 
@@ -19,8 +21,8 @@ function numbers(count) {
   ));
 }
 
-function PatchBay() {
-  const jackCount = 24;
+function PatchBay(props) {
+  const jackCount = props.bay.get('jackCount');
 
   return (
     <div styleName="patch-bay">
@@ -47,4 +49,14 @@ function PatchBay() {
   );
 }
 
-export default PatchBay;
+function mapStateToProps(state, props) {
+  return {
+    bay: props.bay,
+  };
+}
+
+PatchBay.propTypes = {
+  bay: ImmutablePropTypes.record.isRequired,
+};
+
+export default connect(mapStateToProps)(PatchBay);
