@@ -1,47 +1,22 @@
 import { createReducer } from 'redux-immutablejs';
-import { OrderedMap, Map, List, Record } from 'immutable';
+import { OrderedMap, List } from 'immutable';
+import { REHYDRATE } from 'redux-persist/constants';
 import _ from 'lodash';
 
+import records from '../records/patch_bay_records';
+
 let bayId = 0;
-
-const PatchBayLabel = Record({
-  width: 1,
-  value: '',
-});
-
-const JackGroup = Record({
-  jacks: List(),
-});
-
-const PatchBayRecord = Record({
-  id: null,
-  jackCount: 24,
-  stripHeight: Map({
-    value: 5.22,
-    unit: 'mm',
-  }),
-  jackWidth: Map({
-    value: 17.5,
-    unit: 'mm',
-  }),
-  outputs: JackGroup(),
-  inputs: JackGroup(),
-});
-
-const ConfigurationRecord = Record({
-  patchBays: OrderedMap(),
-});
 
 function buildPatchBay(jackCount) {
   bayId += 1;
 
-  const bay = PatchBayRecord({
+  const bay = records.PatchBayRecord({
     id: bayId,
     jackCount,
   });
 
-  const outputJacks = List(_.times(jackCount, () => PatchBayLabel()));
-  const inputJacks = List(_.times(jackCount, () => PatchBayLabel()));
+  const outputJacks = List(_.times(jackCount, () => records.PatchBayLabel()));
+  const inputJacks = List(_.times(jackCount, () => records.PatchBayLabel()));
 
   return bay
     .setIn(['outputs', 'jacks'], outputJacks)
@@ -50,13 +25,20 @@ function buildPatchBay(jackCount) {
 
 const defaultBays = List([buildPatchBay(24), buildPatchBay(24)]);
 
-const initialState = ConfigurationRecord({
+const initialState = records.ConfigurationRecord({
   patchBays: OrderedMap(defaultBays.map(bay => [bay.id, bay])),
 });
 
 export default createReducer(
   initialState,
   {
+    [REHYDRATE]: (state, action) => {
+      if (action.payload.patchBay) {
+        return action.payload.patchBay;
+      }
+
+      return state;
+    },
     JACK_LABEL_EDITED: (state, action) => state.setIn(
       [
         'patchBays',
