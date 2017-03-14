@@ -3,8 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import JackLabel from '../JackLabel/JackLabel';
-import jackLabelActions from '../../actions/jack_label_actions';
+import PatchBayLabels from '../PatchBayLabels/PatchBayLabels';
 import './PatchBay.scss';
 
 function jacks(count) {
@@ -13,47 +12,22 @@ function jacks(count) {
   ));
 }
 
-function onJackLabelChange(bay, jackType) {
-  return function wrappedOnJackLabelChange(jackIndex, value) {
-    return jackLabelActions.jackLabelEdited({
-      bay,
-      jackType,
-      jackIndex,
-      value,
-    });
-  };
-}
-
-function jackLabels(bay, jackType) {
-  const bayId = bay.id;
-
-  return bay[jackType].jacks.map((jack, index) => {
-    const key = `bay-${bayId}-${jackType}-jack-${index}`;
-    const onChange = onJackLabelChange(bay, jackType);
-
-    return (
-      <div styleName="label" key={key}>
-        <JackLabel onChange={onChange} jackIndex={index} value={jack.value} />
-      </div>
-    );
-  });
-}
-
 function numbers(count) {
   return _.times(count, index => (
-    <div styleName="label" key={`number-${index}`}>
+    <div styleName="number-label" key={`number-${index}`}>
       <span styleName="number">{ index + 1 }</span>
     </div>
   ));
 }
 
 function PatchBay(props) {
-  const jackCount = props.bay.jackCount;
+  const { bay } = props;
+  const jackCount = bay.jackCount;
 
   return (
     <div styleName="patch-bay">
       <div styleName="row">
-        { jackLabels(props.bay, 'outputs') }
+        <PatchBayLabels bay={bay} jackType="outputs" />
       </div>
 
       <div styleName="row">
@@ -69,7 +43,7 @@ function PatchBay(props) {
       </div>
 
       <div styleName="row">
-        { jackLabels(props.bay, 'inputs') }
+        <PatchBayLabels bay={bay} jackType="inputs" />
       </div>
     </div>
   );

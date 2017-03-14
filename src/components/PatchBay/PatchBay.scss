@@ -1,6 +1,9 @@
 $row-padding: 5px;
 $input-width: 40px;
-$input-padding: 0 5px;
+$input-padding-left-right: 5px;
+$input-padding: 0 $input-padding-left-right;
+$max-jacks: 48;
+$label-height: 50px;
 
 .label-input {
   width: $input-width - (1.818 * 2);
@@ -21,7 +24,37 @@ $input-padding: 0 5px;
   display: flex;
 }
 
-.label {
+.labels {
+  display: flex;
+}
+
+.empty-label-container,
+.label-container {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  height: $label-height;
+  min-width: $input-width + ($input-padding-left-right * 2);
+}
+
+.empty-label-container {
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
+}
+
+.label-header {
+  height: $label-height / 2;
+}
+
+.jack-labels {
+  display: flex;
+  height: $label-height / 2;
+}
+
+.number-label,
+.jack-label {
   width: $input-width;
   padding: $input-padding;
   text-align: center;

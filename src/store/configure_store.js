@@ -40,7 +40,7 @@ export default function configureStore(initialState) {
   persistStore(store, {
     records,
     storage: localForage,
-  });
+  }).purge();
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
