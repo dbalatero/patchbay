@@ -3,7 +3,7 @@ $input-width: 40px;
 $input-padding: 0 5px;
 
 .label-input {
-  width: $input-width;
+  width: $input-width - (1.818 * 2);
   text-align: center;
 }
 
