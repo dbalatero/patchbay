@@ -29,6 +29,7 @@ function PatchBayLabel(props) {
       <div styleName="jack-labels">
         { props.label.jackLabels.map((text, index) => {
           const key = `label-${props.label.id}-jack-${index}`;
+
           return (
             <div key={key} styleName="jack-label">{ text }</div>
           );
