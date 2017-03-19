@@ -7,7 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import labelActions from '../../actions/label_actions';
 import '../PatchBay/PatchBay.scss';
 
-function EmptyLabel(props) {
+function EmptyPatchBayLabel(props) {
   return (
     <a tabIndex="0" styleName="empty-label-container" onClick={props.onClickHandler}>
       +
@@ -15,11 +15,11 @@ function EmptyLabel(props) {
   );
 }
 
-EmptyLabel.propTypes = {
+EmptyPatchBayLabel.propTypes = {
   onClickHandler: React.PropTypes.func.isRequired,
 };
 
-function Label(props) {
+function PatchBayLabel(props) {
   return (
     <div styleName="label-container">
       <div styleName="label-header">
@@ -27,24 +27,28 @@ function Label(props) {
       </div>
 
       <div styleName="jack-labels">
-        { props.label.jackLabels.map(text => (
-          <div styleName="jack-label">{ text }</div>
-        )) }
+        { props.label.jackLabels.map((text, index) => {
+          const key = `label-${props.label.id}-jack-${index}`;
+          return (
+            <div key={key} styleName="jack-label">{ text }</div>
+          );
+        }) }
       </div>
     </div>
   );
 }
 
-Label.propTypes = {
+PatchBayLabel.propTypes = {
   label: ImmutablePropTypes.record.isRequired,
 };
 
-function makeEmptyLabels(number, keyStart, onEmptyClick) {
+function makeEmptyPatchBayLabels(number, keyStart, onEmptyClick) {
   return _.times(number, (index) => {
     const jackIndex = index + keyStart;
+    const key = `empty-label-${jackIndex}`;
 
     return (
-      <EmptyLabel key={jackIndex} onClickHandler={onEmptyClick(jackIndex)} />
+      <EmptyPatchBayLabel key={key} onClickHandler={onEmptyClick(jackIndex)} />
     );
   });
 }
@@ -60,13 +64,13 @@ function labelTags(options) {
 
     if (difference > 0) {
       labelElements = labelElements.concat(
-        makeEmptyLabels(difference, currentIndex, onEmptyClick));
+        makeEmptyPatchBayLabels(difference, currentIndex, onEmptyClick));
 
       currentIndex += difference;
     }
 
-    console.log(currentIndex);
-    labelElements.push(<Label label={label} key={currentIndex} />);
+    const key = `label-${label.id}`;
+    labelElements.push(<PatchBayLabel key={key} label={label} />);
 
     currentIndex += 1;
   });
@@ -75,7 +79,7 @@ function labelTags(options) {
 
   if (remainingEmptyRecords > 0) {
     labelElements = labelElements.concat(
-      makeEmptyLabels(remainingEmptyRecords, currentIndex, onEmptyClick));
+      makeEmptyPatchBayLabels(remainingEmptyRecords, currentIndex, onEmptyClick));
   }
 
   return labelElements;
